@@ -8,7 +8,7 @@ size_t CharChanger(char array[], size_t size, char delimiter = ' ')
 
     for (size_t i = 0; i < size; ++i)
     {
-        if (array[i]==' ');
+        if (array[i]==' ')
             { //...если это не пробел. если пробел, то все ок, меняем:
                 size_t temp = 1;
                 while (temp + i < size && array[i] == array[i + temp])
