@@ -8,15 +8,6 @@ size_t CharChanger(char array[], size_t size, char delimiter = ' ')
 
     for (size_t i = 0; i < size; ++i)
     {
-        if (array[i]==' ')
-            { //...если это не пробел. если пробел, то все ок, меняем:
-                size_t temp = 1;
-                while (temp + i < size && array[i] == array[i + temp])
-                    ++temp;
-                i += temp - 1;
-                array[temp_ptr] = delimiter;
-                ++temp_ptr;
-            }
 
         if (isalnum(array[i]))
         { // если это буква-цифра
@@ -64,14 +55,24 @@ size_t CharChanger(char array[], size_t size, char delimiter = ' ')
                 while (temp + i < size && array[i] == array[i + temp])
                     ++temp;
                 array[temp_ptr] = '_';
-                ++temp_ptr; 
+                ++temp_ptr;
                 if (temp > 1)
                 {                                                                          
-                    temp >= 10 ? (array[temp_ptr] = '0') : (array[temp_ptr] = '0' + temp); 
+                    array[temp_ptr] = (temp>=10)? '0':'0'+temp; 
                     ++temp_ptr;                                                            
                 }
+                i += temp - 1;
             }
-            
+            else
+            { //...если это не пробел. если пробел, то все ок, меняем:
+                size_t temp = 1;
+                while (i + temp < size && array[i] == array[i + temp])
+                    ++temp;
+                
+                array[temp_ptr] = delimiter;
+                ++temp_ptr;
+                i += temp - 1;
+            }
         }
     }
     for (size_t i = temp_ptr; i < size; ++i)
