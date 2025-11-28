@@ -1,6 +1,5 @@
 #include <cstddef>
 #include <stdexcept>
-#include <cctype>
 
 size_t CharChanger(char array[], size_t size, char delimiter = ' ')
 {
@@ -9,6 +8,15 @@ size_t CharChanger(char array[], size_t size, char delimiter = ' ')
 
     for (size_t i = 0; i < size; ++i)
     {
+        if (array[i]==' ');
+            { //...если это не пробел. если пробел, то все ок, меняем:
+                size_t temp = 1;
+                while (temp + i < size && array[i] == array[i + temp])
+                    ++temp;
+                i += temp - 1;
+                array[temp_ptr] = delimiter;
+                ++temp_ptr;
+            }
 
         if (isalnum(array[i]))
         { // если это буква-цифра
@@ -56,22 +64,14 @@ size_t CharChanger(char array[], size_t size, char delimiter = ' ')
                 while (temp + i < size && array[i] == array[i + temp])
                     ++temp;
                 array[temp_ptr] = '_';
-                ++temp_ptr;
+                ++temp_ptr; 
                 if (temp > 1)
                 {                                                                          
                     temp >= 10 ? (array[temp_ptr] = '0') : (array[temp_ptr] = '0' + temp); 
                     ++temp_ptr;                                                            
                 }
             }
-            else
-            { //...если это не пробел. если пробел, то все ок, меняем:
-                size_t temp = 1;
-                while (temp + i < size && array[i] == array[i + temp])
-                    ++temp;
-                i += temp - 1;
-                array[temp_ptr] = delimiter;
-                ++temp_ptr;
-            }
+            
         }
     }
     for (size_t i = temp_ptr; i < size; ++i)
