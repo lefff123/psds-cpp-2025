@@ -3,5 +3,6 @@
 
 
 int64_t Addition(int a, int b) {
-    throw std::runtime_error{"Not implemented"};
+    int64_t c=a+b;
+    return c;
 }
