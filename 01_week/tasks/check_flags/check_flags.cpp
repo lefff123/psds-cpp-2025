@@ -72,9 +72,6 @@ void PrintCheckFlags(CheckFlags flags) {
         std::cout<<"DEST";
     }
     
-    if (first){
-        std::cout<<"NONE";
-    }
         std::cout<<']';
     
     
