@@ -4,7 +4,7 @@
 
 double CalculateRMS(double values[], size_t size)
 {
-    if (!size){
+    if (!size || values == nullptr){
         return 0.;
     }
     long double sum = 0;
