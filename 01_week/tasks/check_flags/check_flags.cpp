@@ -16,31 +16,68 @@ enum class CheckFlags : uint8_t {
 
 
 // побитовое сравнение каждого флага и переданного числа. сравниваем,, приводя все к 8-ми битному инту
-// пробовал сделать через switch, не получилось. удивился, что CheckFlags - тоже пространство имен. прикольно.=
+// пробовал сделать через switch, не получилось. удивился, что к CheckFlags обращаемся как к пространству имен
 
 
 void PrintCheckFlags(CheckFlags flags) {
-    if (sizeof(flags)==sizeof(uint8_t)){
-        std::cout<<"[NONE";
-        
-        if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::TIME))
-            std::cout<<",TIME";
-        if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::DATE))
-            std::cout<<",DATE";
-        if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::USER))
-            std::cout<<",USER";
-        if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::CERT))
-            std::cout<<",CERT";
-        if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::KEYS))
-            std::cout<<",KEYS";
-        if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::DEST))
-            std::cout<<",DEST";
-        if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::ALL))
-            std::cout<<",ALL";
-        std::cout<<']'<<std::endl;
+    uint8_t value = static_cast<uint8_t>(flags);
+    
+    if (value > 0b00111111) {  // Если установлены биты вне диапазона 0-5
+        std::cout << "";
+        return;
     }
-    else{
-        puts("[]");
+
+    bool first=true;
+
+    std::cout<<'[';
+
+    if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::TIME))
+    {
+        std::cout<<"TIME";
+        first=false;
     }
+            
+    if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::DATE))
+    {
+        if (!first) std::cout<<",";
+        first = false;
+        std::cout<<"DATE";
+    }
+            
+    if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::USER))
+    {
+        if (!first) std::cout<<",";
+        first = false;
+        std::cout<<"USER";
+    }
+            
+    if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::CERT))
+    {
+        if (!first) std::cout<<",";
+        first = false;
+        std::cout<<"CERT";
+    }
+            
+    if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::KEYS))
+    {
+        if (!first) std::cout<<",";
+        first = false;
+        std::cout<<"KEYS";
+    }
+            
+    if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::DEST))
+    {
+        if (!first) std::cout<<",";
+        first = false;
+        std::cout<<"DEST";
+    }
+    
+    if (first){
+        std::cout<<"NONE";
+    }
+        std::cout<<']';
+    
+    
+    
     
 }
