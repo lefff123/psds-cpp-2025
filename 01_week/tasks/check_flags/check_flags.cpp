@@ -1,5 +1,6 @@
 #include <cstdint>
 #include <stdexcept>
+#include <iostream>
 
 
 enum class CheckFlags : uint8_t {
@@ -13,6 +14,67 @@ enum class CheckFlags : uint8_t {
     ALL = TIME | DATE | USER | CERT | KEYS | DEST
 };
 
+
+// побитовое сравнение каждого флага и переданного числа. сравниваем,, приводя все к 8-ми битному инту
+// пробовал сделать через switch, не получилось. удивился, что к CheckFlags обращаемся как к пространству имен
+
+
 void PrintCheckFlags(CheckFlags flags) {
-    throw std::runtime_error{"Not implemented"};
+    uint8_t value = static_cast<uint8_t>(flags);
+    
+    if (value > 0b00111111) {  // Если установлены биты вне диапазона 0-5
+        std::cout << "";
+        return;
+    }
+
+    bool first=true;
+
+    std::cout<<'[';
+
+    if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::TIME))
+    {
+        std::cout<<"TIME";
+        first=false;
+    }
+            
+    if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::DATE))
+    {
+        if (!first) std::cout<<",";
+        first = false;
+        std::cout<<"DATE";
+    }
+            
+    if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::USER))
+    {
+        if (!first) std::cout<<",";
+        first = false;
+        std::cout<<"USER";
+    }
+            
+    if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::CERT))
+    {
+        if (!first) std::cout<<",";
+        first = false;
+        std::cout<<"CERT";
+    }
+            
+    if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::KEYS))
+    {
+        if (!first) std::cout<<",";
+        first = false;
+        std::cout<<"KEYS";
+    }
+            
+    if (static_cast<uint8_t>(flags)&static_cast<u_int8_t>(CheckFlags::DEST))
+    {
+        if (!first) std::cout<<",";
+        first = false;
+        std::cout<<"DEST";
+    }
+    
+        std::cout<<']';
+    
+    
+    
+    
 }
